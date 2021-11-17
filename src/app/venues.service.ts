@@ -8,7 +8,9 @@ export class VenuesService {
   constructor(private http: HttpClient) {}
 
   getListOfVenues() {
-    const url = 'https://coinmap.org/api/v1/venues/';
+    const limitResults = 20;
+    const url =
+      'https://coinmap.org/api/v1/venues/' + `?limit=` + `${limitResults}`;
 
     return this.http.get(url);
   }
