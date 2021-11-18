@@ -21,7 +21,7 @@ import { OverviewAndEditDialogComponent } from './overview-and-edit-dialog/overv
   declarations: [
     AppComponent,
     VenuesListComponent,
-    OverviewAndEditDialogComponent,
+    OverviewAndEditDialogComponent
   ],
   imports: [
     BrowserModule,
