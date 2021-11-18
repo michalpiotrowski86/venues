@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VenuesService } from '../venues.service';
-import {
-  MatDialog
-} from '@angular/material/dialog';
+import { Venue } from '../models/venue';
+import { MatDialog } from '@angular/material/dialog';
 import { OverviewAndEditDialogComponent } from '../overview-and-edit-dialog/overview-and-edit-dialog.component';
 
 @Component({
@@ -21,8 +20,8 @@ export class VenuesListComponent implements OnInit {
     'lon',
   ];
 
-  dataSource!: any[];
-  isLoading!: boolean;
+  dataSource: Venue[] = [];
+  isLoading: boolean = false;
 
   constructor(private venuesService: VenuesService, public dialog: MatDialog) {}
 
@@ -31,19 +30,19 @@ export class VenuesListComponent implements OnInit {
   }
 
   getAllVenues() {
+    this.isLoading = true;
     this.venuesService.getListOfVenues().subscribe((res) => {
-      console.log(res);
-      
       this.dataSource = Object.values(res)[0];
-      console.log(this.dataSource);
+      this.isLoading = false;
     });
   }
 
   openDialog(row: any) {
-    console.log(row);
     const dialogRef = this.dialog.open(OverviewAndEditDialogComponent, {
       width: '400px',
       data: row,
     });
+
+    dialogRef.afterClosed().subscribe((res) => {});
   }
 }

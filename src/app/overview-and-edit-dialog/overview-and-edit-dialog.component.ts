@@ -1,9 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Venue } from '../models/venue';
 
 @Component({
   selector: 'app-overview-and-edit-dialog',
@@ -11,16 +8,26 @@ import {
   styleUrls: ['./overview-and-edit-dialog.component.css'],
 })
 export class OverviewAndEditDialogComponent implements OnInit {
+  disabled: boolean = true;
+
   constructor(
     public dialogRef: MatDialogRef<OverviewAndEditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: Venue
   ) {}
 
-  ngOnInit(): void {
-    console.log('this.data: ', this.data);
+  ngOnInit(): void {}
+
+  onCloseClick(): void {
+    this.dialogRef.close();
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  onOKClick() {
+    this.dialogRef.close(this.data);
+  }
+
+  handleChange(event: any) {
+    if (event) {
+      this.disabled = false;
+    }
   }
 }
